@@ -96,8 +96,8 @@ def rotate_polydata(pd, rotation_center, theta_x=0,theta_y=0, theta_z=0, transla
 
     return transformer_t2.GetOutputDataObject(0)
 
-datafn = 'test.mha'
-polydata_file = 'test.vtp'
+datafn = './test.mha'
+polydata_file = './test.vtp'
 reader = vtk.vtkXMLPolyDataReader()
 reader.SetFileName(polydata_file)
 reader.Update()
@@ -105,6 +105,7 @@ pd = reader.GetOutput()
 
 img = sitk.ReadImage(datafn)
 seg = pd_to_itk_image(pd, img)
+rotation_center = np.array(img.GetOrigin())+np.array(img.GetSpacing())*np.array(img.GetSize())/2
 thetas = [0, 50]
 thetas = [0, 50]
 for theta_x in thetas:
